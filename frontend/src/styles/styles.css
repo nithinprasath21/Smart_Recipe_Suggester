@@ -124,4 +124,151 @@
      border:'none'; 
      border-radius:'50%'; 
      cursor:'pointer';
+}/* styles/styles.css */
+/* styles/styles.css */
+
+/* Container for the entire ingredient search */
+.ingredient-search-container {
+    text-align: center;
+}
+
+/* Logo styling */
+.logo {
+    width: 350px; /* Adjust size as needed */
+    margin-bottom: 10px; /* Space below the logo */
+}
+
+/* Search bar styling */
+.search-bar {
+    width: 60%; /* Wider width for a Google-style search bar */
+    padding: 15px; /* Increased padding for better appearance */
+    border-radius: 25px; /* Rounded edges */
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+/* Suggestions list styling */
+.suggestions-list {
+    border: 1px solid #ccc;
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: -5px; /* Adjust margin to overlap with input */
+    width: 60%; /* Match width with search bar */
+    position: absolute; /* Position it absolutely to align directly under the input */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust to center it based on its own width */
+    z-index: 1000; /* Ensure it appears above other elements */
+    background-color: #f9f9f9; /* Light grey background for suggestions */
+}
+
+.suggestion-item {
+    padding: 10px; /* Padding for suggestion items */
+    transition: background-color 0.3s; 
+}
+
+.suggestion-item:hover {
+    background-color: #d3d3d3; /* Change to a darker grey on hover */
+    
+}
+
+/* Add button styling for suggestions */
+.add-button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    color: #007bff; /* Bootstrap primary color */
+    font-weight: bold; /* Bold text */
+    margin-left: 10px;
+}
+
+/* Selected ingredients container styling */
+.selected-ingredients-container {
+    margin-top: 20px;
+}
+
+.selected-ingredients {
+    display: flex;
+    justify-content: center; /* Center align selected ingredients */
+}
+
+/* Individual selected ingredient styling */
+.selected-ingredient {
+    display: inline-block;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+/* Remove button styling */
+.remove-button {
+    background-color: transparent; 
+    border: none; 
+    color: white; 
+}
+
+/* Styles for the search button */
+.search-button {
+    background-color: black; /* Black background */
+    color: white; /* White text */
+    font-weight: bold; /* Bold text */
+    padding: 10px 20px; /* Padding for size */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 15px;
+}
+
+.search-button:hover {
+    background-color: rgb(40, 40, 40); /* Change to grey on hover */
+}
+.load-button {
+    background-color: black; /* Black background */
+    color: white; /* White text */
+    font-weight: bold; /* Bold text */
+    padding: 10px 20px; /* Padding for size */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.load-button:hover {
+    background-color: rgb(40, 40, 40); /* Change to grey on hover */
+}
+
+/* Styles for modal overlay and content */
+.modal-overlay {
+     position: fixed;
+}
+
+/* Recipe grid styling for displaying recipes in rows of four */
+.recipe-grid {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr); /* Four columns per row initially loaded with recipes*/
+   gap: 20px; /* Space between recipe cards */
+   margin-top: 20px;
+}
+
+/* Responsive adjustments for recipe grid layout based on screen size */
+
+@media (max-width: 1200px) {
+   .recipe-grid {
+       grid-template-columns: repeat(4, 1fr); /* Maintain four columns for medium screens */
+   }
+}
+
+@media (max-width: 992px) {
+   .recipe-grid {
+       grid-template-columns: repeat(3, 1fr); /* Three columns for smaller screens */
+   }
+}
+
+@media (max-width: 768px) {
+   .recipe-grid {
+       grid-template-columns: repeat(2, 1fr); /* Two columns for mobile screens */
+   }
+}
+
+@media (max-width: 480px) {
+   .recipe-grid {
+       grid-template-columns: 1fr; /* One column for very small screens */
+   }
 }

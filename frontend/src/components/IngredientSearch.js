@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../styles/styles.css'; // Import the CSS file
 import RecipeCard from './RecipeCard'; // Import RecipeCard component
 import RecipeModal from './RecipeModal'; // Import RecipeModal component
+import spicelogo from './spicelogo.png'; // Import spice logo image
 
 function IngredientSearch() {
     const [inputValue, setInputValue] = useState('');
@@ -59,7 +60,7 @@ function IngredientSearch() {
             const response = await axios.post('http://localhost:5000/api/recipes/search', { 
                 ingredients: selectedIngredients,
                 page,
-                limit: 10 
+                limit: 12 // Load 12 recipes initially
             });
             setRecipes(response.data);
             setPage(1); // Reset page to 1 when new search is initiated
@@ -77,7 +78,7 @@ function IngredientSearch() {
             const response = await axios.post('http://localhost:5000/api/recipes/search', { 
                 ingredients: selectedIngredients,
                 page: nextPage,
-                limit: 10 
+                limit: 12 // Load 12 more recipes each time
             });
 
             if (response.data.length > 0) {
@@ -89,15 +90,15 @@ function IngredientSearch() {
         }
     };
 
-    // Handle selecting a recipe to view details
-    const handleSelectRecipe = (recipe) => {
-        setSelectedRecipe(recipe);
-    };
+   // Handle selecting a recipe to view details
+   const handleSelectRecipe = (recipe) => {
+       setSelectedRecipe(recipe);
+   };
 
-    // Close recipe details modal
-    const closeRecipeDetails = () => {
-        setSelectedRecipe(null);
-    };
+   // Close recipe details modal
+   const closeRecipeDetails = () => {
+       setSelectedRecipe(null);
+   };
 
    // Remove an ingredient from selected ingredients
    const handleRemoveIngredient = (ingredientToRemove) => {
@@ -106,69 +107,76 @@ function IngredientSearch() {
 
    return (
        <div>
-           <h1>Ingredient Search</h1>
-           <input 
-               type="text" 
-               value={inputValue} 
-               onChange={handleInputChange} 
-               onKeyDown={handleKeyPress} 
-               placeholder="Type an ingredient..."
-           />
-           
-           {suggestions.length > 0 && (
-               <ul style={{ border: '1px solid #ccc', listStyleType: 'none', padding: '5px', marginTop: '5px' }}>
-                   {suggestions.map((suggestion, index) => (
-                       <li 
-                           key={index} 
-                           style={{ cursor: 'pointer', padding: '5px' }}
-                           onClick={() => handleSelectSuggestion(suggestion)}
-                       >
-                           {suggestion}
-                       </li>
-                   ))}
-               </ul>
-           )}
+           {/* Logo centered above the search bar */}
+           <div style={{ textAlign: 'center', marginTop: '20px' }}>
+               <img src={spicelogo} alt="Spice Rack Logo" className="logo" /> {/* Centered logo */}
+           </div>
+           <div className="ingredient-search-container">
+               <input 
+                   type="text" 
+                   value={inputValue} 
+                   onChange={handleInputChange} 
+                   onKeyDown={handleKeyPress} 
+                   placeholder="Type an ingredient"
+                   className="search-bar"
+               />
+               
+               {suggestions.length > 0 && (
+                   <ul className="suggestions-list">
+                       {suggestions.map((suggestion, index) => (
+                           <li 
+                               key={index} 
+                               className="suggestion-item"
+                               onClick={() => handleSelectSuggestion(suggestion)}
+                           >
+                               {suggestion}
+                               <button className="add-button">+</button> {/* Button to add ingredient */}
+                           </li>
+                       ))}
+                   </ul>
+               )}
 
-           {selectedIngredients.length > 0 && (
-               <div style={{ marginTop: '20px' }}>
-                   <h3>Selected Ingredients:</h3>
-                   <div>
-                       {selectedIngredients.map((ingredient, index) => (
-                           <span key={index} className="selected-ingredient">
-                               {ingredient}
-                               <button onClick={() => handleRemoveIngredient(ingredient)} style={{ marginLeft: '5px', color:'white' }}>x</button>
-                           </span>
+               {selectedIngredients.length > 0 && (
+                   <div className="selected-ingredients-container">
+                       <h3>Selected Ingredients:</h3>
+                       <div className="selected-ingredients">
+                           {selectedIngredients.map((ingredient, index) => (
+                               <span key={index} className="selected-ingredient">
+                                   {ingredient}
+                                   <button onClick={() => handleRemoveIngredient(ingredient)} className="remove-button">x</button>
+                               </span>
+                           ))}
+                       </div>
+                       {/* Search Button aligned below selected ingredients */}
+                       <button onClick={handleSearchRecipes} className="search-button">Search Recipes ⌕</button>
+                   </div>
+               )}
+
+               {/* Display Recipes */}
+               {recipes.length > 0 && (
+                   <div className="recipe-grid">
+                       {recipes.map((recipe, index) => (
+                           <RecipeCard 
+                               key={index} 
+                               recipe={recipe} 
+                               onClick={() => handleSelectRecipe(recipe)} 
+                           />
                        ))}
                    </div>
-                   {/* Search Button */}
-                   <button onClick={handleSearchRecipes}>Search Recipes</button>
-               </div>
-           )}
+               )}
 
-           {/* Display Recipes */}
-           {recipes.length > 0 && (
-               <div className="recipe-grid">
-                   {recipes.map((recipe, index) => (
-                       <RecipeCard 
-                           key={index} 
-                           recipe={recipe} 
-                           onClick={() => handleSelectRecipe(recipe)} 
-                       />
-                   ))}
-               </div>
-           )}
+               {/* Load More Button */}
+               {recipes.length > 0 && (
+                   <button onClick={handleLoadMoreRecipes} className="load-button">
+                       Load More ↯
+                   </button>
+               )}
 
-           {/* Load More Button */}
-           {recipes.length > 0 && (
-               <button onClick={handleLoadMoreRecipes} style={{ marginTop: '20px' }}>
-                   Load More
-               </button>
-           )}
-
-           {/* Recipe Details Modal */}
-           {selectedRecipe && (
-               <RecipeModal recipe={selectedRecipe} onClose={closeRecipeDetails} />
-           )}
+               {/* Recipe Details Modal */}
+               {selectedRecipe && (
+                   <RecipeModal recipe={selectedRecipe} onClose={closeRecipeDetails} />
+               )}
+           </div>
        </div>
    );
 }
