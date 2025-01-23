@@ -102,7 +102,16 @@ function IngredientSearch() {
 
    // Remove an ingredient from selected ingredients
    const handleRemoveIngredient = (ingredientToRemove) => {
-       setSelectedIngredients(selectedIngredients.filter(ingredient => ingredient !== ingredientToRemove));
+       const updatedIngredients = selectedIngredients.filter(ingredient => ingredient !== ingredientToRemove);
+       setSelectedIngredients(updatedIngredients);
+
+       // If no ingredients left after removal, clear recipes and hide Load More button
+       if (updatedIngredients.length === 0) {
+           setRecipes([]); // Clear recipes when no ingredients are selected
+           setPage(1);     // Reset page number for future searches
+       } else {
+           handleSearchRecipes(); // Re-fetch recipes based on remaining ingredients
+       }
    };
 
    return (
@@ -156,17 +165,20 @@ function IngredientSearch() {
                {recipes.length > 0 && (
                    <div className="recipe-grid">
                        {recipes.map((recipe, index) => (
-                           <RecipeCard 
-                               key={index} 
-                               recipe={recipe} 
-                               onClick={() => handleSelectRecipe(recipe)} 
-                           />
+                           recipe.matchCount > 0 && ( // Only display recipes with a match score greater than 0%
+                               <RecipeCard 
+                                   key={index} 
+                                   recipe={recipe} 
+                                   onClick={() => handleSelectRecipe(recipe)}
+                                   selectedIngredients={selectedIngredients}
+                               />
+                           )
                        ))}
                    </div>
                )}
 
                {/* Load More Button */}
-               {recipes.length > 0 && (
+               {recipes.length > 0 && recipes.some(recipe => recipe.matchCount > 0) && ( // Only show Load More if there are valid recipes left to load
                    <button onClick={handleLoadMoreRecipes} className="load-button">
                        Load More ↯
                    </button>

@@ -3,7 +3,9 @@
 import React from 'react';
 import CircularProgress from './CircularProgress'; // Import Circular Progress component
 
-const RecipeCard = ({ recipe, onClick }) => {
+const RecipeCard = ({ recipe, onClick, selectedIngredients }) => {
+    const cleanedIngredients = recipe['Cleaned-Ingredients'].split(',').map(ingredient => ingredient.trim());
+    const availableCount = cleanedIngredients.filter(ingredient => selectedIngredients.includes(ingredient)).length;
     return (
         <div className="recipe-container" onClick={onClick}>
             {/* Top Row for Image */}
@@ -16,6 +18,12 @@ const RecipeCard = ({ recipe, onClick }) => {
                 {/* Recipe Name */}
                 <div className="recipe-name">
                     <h4>{recipe.TranslatedRecipeName}</h4>
+                    {/* Subtitle for available ingredients */}
+                    <p style={{ margin: '0', fontStyle: 'italic' }}>
+                        {availableCount === cleanedIngredients.length 
+                            ? `You have all ${cleanedIngredients.length} ingredients` 
+                            : `You have ${availableCount} out of ${cleanedIngredients.length} ingredients`}
+                    </p>
                 </div>
 
                 {/* Circular Progress Bar */}

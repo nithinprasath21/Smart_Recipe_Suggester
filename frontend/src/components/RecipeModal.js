@@ -5,6 +5,9 @@ import mealIcon from './meal.svg'; // Adjust path as necessary
 import linkIcon from './link.svg'; // Adjust path as necessary
 
 const RecipeModal = ({ recipe, onClose }) => {
+    // Set the static video link
+    const videoLink = "KE1e40g0WbE?si=CPgqS6T1v6H0FPoR"; // Static YouTube video ID
+
     if (!recipe) return null; // If no recipe is selected, return null
 
     return (
@@ -43,17 +46,19 @@ const RecipeModal = ({ recipe, onClose }) => {
                 </h3>
                 <ol style={procedureListStyle}>
                     {recipe.TranslatedInstructions.split('\n').map((step, index) => (
-                        <li key={index}>{step}</li>
+                        step.trim() !== '' && ( // Only render non-empty steps
+                            <li key={index}>{step}</li>
+                        )
                     ))}
                 </ol>
 
-                {recipe.youtubeLink && (
+                {videoLink && (
                     <div style={videoContainerStyle}>
                         <iframe 
                             width="100%" 
-                            height="200" 
-                            src={`https://www.youtube.com/embed/${recipe.youtubeLink}`} 
-                            title="YouTube video" 
+                            height="700" 
+                            src={`https://www.youtube.com/embed/${videoLink}`} 
+                            title="YouTube" 
                             frameBorder="0" 
                             allowFullScreen
                         ></iframe>
