@@ -4,11 +4,16 @@ import React from 'react';
 import mealIcon from './meal.svg'; // Adjust path as necessary
 import linkIcon from './link.svg'; // Adjust path as necessary
 
-const RecipeModal = ({ recipe, onClose }) => {
+const RecipeModal = ({ recipe, onClose, selectedIngredients }) => {
     // Set the static video link
     const videoLink = "KE1e40g0WbE?si=CPgqS6T1v6H0FPoR"; // Static YouTube video ID
 
     if (!recipe) return null; // If no recipe is selected, return null
+
+    // Calculate available and missing ingredients
+    const cleanedIngredients = recipe['Cleaned-Ingredients'].split(',').map(ingredient => ingredient.trim());
+    const availableIngredients = cleanedIngredients.filter(ingredient => selectedIngredients.includes(ingredient));
+    const missingIngredients = cleanedIngredients.filter(ingredient => !selectedIngredients.includes(ingredient));
 
     return (
         <div style={overlayStyle}>
@@ -27,14 +32,27 @@ const RecipeModal = ({ recipe, onClose }) => {
                     <div style={infoColumnStyle}>
                         <div style={cookingTimeContainer}>
                             <img src={mealIcon} alt="Cooking Time" style={iconStyle} />
-                            <span style={cookingTimeText}>{recipe.TotalTimeInMins} minutes</span>
+                            <span style={cookingTimeText}>{recipe.TotalTimeInMins} minutes - {recipe.Cuisine}</span>
                         </div>
-                        <p style={{ textAlign: 'left' }}><strong style={recipeHeadingStyle}>Required Ingredients:</strong></p>
-                        <ul style={ingredientListStyle}>
-                            {recipe['Cleaned-Ingredients'].split(',').map((ingredient, index) => (
-                                <li key={index}>{ingredient.trim()}</li>
-                            ))}
-                        </ul>
+                        <p style={{ textAlign: 'left' }}><strong>Required Ingredients:</strong></p>
+                        
+                        {/* Available Ingredients */}
+                        {availableIngredients.length > 0 && (
+                            <ul style={availableIngredientListStyle}>
+                                {availableIngredients.map((ingredient, index) => (
+                                    <li key={index} style={{ color: 'darkgreen' }}>{ingredient}</li> // Green text for available ingredients
+                                ))}
+                            </ul>
+                        )}
+
+                        {/* Missing Ingredients */}
+                        {missingIngredients.length > 0 && (
+                            <ul style={missingIngredientListStyle}>
+                                {missingIngredients.map((ingredient, index) => (
+                                    <li key={index} style={{ color: 'red' }}>{ingredient}</li> // Red text for missing ingredients
+                                ))}
+                            </ul>
+                        )}
                     </div>
                 </div>
 
@@ -134,7 +152,6 @@ const cookingTimeContainer = {
     display: 'flex',
     alignItems: 'center', // Align items vertically centered
     paddingTop: '10px', // Add padding around cooking time
-    textAlign: 'left', // Align text to the left
 };
 
 const cookingTimeText = {
@@ -148,24 +165,31 @@ const iconStyle = {
 };
 
 const recipeHeadingStyle = {
-    fontSize: '30px', // Larger font size for recipe heading
-    marginTop: '20px', // Space above "Recipe"
+   fontSize: '30px', // Larger font size for recipe heading
+   marginTop: '20px', // Space above "Recipe"
 };
 
-const ingredientListStyle = {
-    listStyleType: 'disc', // Bullet points for ingredients
-    textAlign: 'left', // Align text to the left
-    paddingLeft: '20px', // Optional: Add padding for better visibility of bullet points
+const availableIngredientListStyle = {
+   listStyleType: 'disc', // Bullet points for available ingredients
+   textAlign: 'left', // Align text to the left
+   paddingLeft: '20px', // Padding for better visibility of bullet points
+};
+
+const missingIngredientListStyle = {
+   listStyleType: 'disc', // Bullet points for missing ingredients
+   textAlign: 'left', // Align text to the left
+   paddingLeft: '20px', // Padding for better visibility of bullet points
+   color: '#ff0000' ,// Red color for missing ingredients to differentiate them visually
 };
 
 const procedureListStyle = {
-    marginTop: '10px', // Space above procedure list
-    textAlign: 'left', // Align text to the left
+   marginTop: '10px', // Space above procedure list
+   textAlign: 'left', // Align text to the left
 };
 
 const videoContainerStyle = {
-    display: 'flex',
-    justifyContent: 'center', // Center the video iframe
+   display: 'flex',
+   justifyContent: 'center', // Center the video iframe
 };
 
 export default RecipeModal;
