@@ -93,6 +93,7 @@
 /* Container for the entire ingredient search */
 .ingredient-search-container {
     text-align: center;
+    margin-bottom: 60px;
 }
 
 /* Logo styling */

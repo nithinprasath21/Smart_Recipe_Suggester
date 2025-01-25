@@ -6,7 +6,7 @@ import linkIcon from './link.svg'; // Adjust path as necessary
 
 const RecipeModal = ({ recipe, onClose, selectedIngredients }) => {
     // Set the static video link
-    const videoLink = "KE1e40g0WbE?si=CPgqS6T1v6H0FPoR"; // Static YouTube video ID
+    const videoLink = "L4tld6GZ0d0"; // Static YouTube video ID
 
     if (!recipe) return null; // If no recipe is selected, return null
 
@@ -32,7 +32,7 @@ const RecipeModal = ({ recipe, onClose, selectedIngredients }) => {
                     <div style={infoColumnStyle}>
                         <div style={cookingTimeContainer}>
                             <img src={mealIcon} alt="Cooking Time" style={iconStyle} />
-                            <span style={cookingTimeText}>{recipe.TotalTimeInMins} minutes - {recipe.Cuisine}</span>
+                            <span style={cookingTimeText}>{recipe.TotalTimeInMins} minutes - <b>Cuisine</b> : {recipe.Cuisine}</span>
                         </div>
                         <p style={{ textAlign: 'left' }}><strong>Required Ingredients:</strong></p>
                         

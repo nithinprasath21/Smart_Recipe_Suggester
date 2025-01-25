@@ -227,34 +227,6 @@ function IngredientSearch() {
                                         marginRight: '5px' // Space between input and button
                                     }}
                                 />
-                                {/* {cuisineSuggestions.length > 0 && (
-                                    <ul className="suggestions-list" style={{
-                                        position: 'absolute', // Position it absolutely
-                                        zIndex: 1000, // Ensure it appears above other elements
-                                        width: '200px', // Match the width of the filter input
-                                        marginTop: '5px', // Space between input and dropdown
-                                        padding: '0', // Remove default padding
-                                        listStyleType: 'none', // Remove bullet points
-                                        border: '1px solid #ccc', // Light gray border for dropdown
-                                        borderRadius: '5px', // Rounded edges for dropdown
-                                        backgroundColor: 'white', // White background for dropdown
-                                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', // Shadow effect for dropdown
-                                    }}>
-                                        {cuisineSuggestions.map((cuisine, index) => (
-                                            <li 
-                                                key={index} 
-                                                className="suggestion-item"
-                                                onClick={() => handleSelectCuisineSuggestion(cuisine)}
-                                                style={{
-                                                    padding: '10px', // Padding for each item
-                                                    cursor: 'pointer', // Pointer cursor on hover
-                                                }}
-                                            >
-                                                {cuisine}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )} */}
                                 <button 
                                     onClick={handleFilterRecipes} 
                                     className="filter-button" 

@@ -1,0 +1,30 @@
+/* src/components/Footer.css */
+
+.footer {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    text-align: center;
+    padding: 10px 0; /* Padding around footer */
+    position: fixed; /* Sticky position */
+    bottom: 0; /* Stick to bottom */
+    width: 100%; /* Full width */
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center content horizontally */
+ }
+ 
+ .scrolling-text {
+    overflow: hidden; /* Hide overflow */
+    white-space: nowrap; /* Prevent line breaks in scrolling text */
+    animation: scroll-text 20s linear infinite; /* Animation for scrolling text */
+ }
+ 
+ .quote {
+    display: inline-block;
+    margin-right: 50px; /* Space between quotes */
+ }
+ 
+ @keyframes scroll-text {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+ }
+ 

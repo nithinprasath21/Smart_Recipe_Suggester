@@ -1,0 +1,68 @@
+/* src/components/Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Space between logo/title and search */
+    align-items: center; /* Center items vertically */
+    padding: 10px ; /* Padding around navbar */
+    background-color: #4CAF50; /* Green background */
+    position: sticky; /* Sticky position */
+    top: 0; /* Stick to top */
+    z-index: 1000; /* Ensure it stays above other content */
+    height: 70px;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center; /* Center logo and title vertically */
+}
+
+.nlogo {
+    width: 100px; /* Adjust logo size (smaller than before) */
+    height: 100px; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.navbar-title {
+    text-align: left;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 24px; /* Font size for title */
+    color: white; /* White text color */
+}
+
+.navbar-search {
+    align-items: center;
+    padding-left: 40px;
+    flex-grow: 1; /* Allow search bar to take available space */
+}
+
+.search-bar {
+    width: 100%; /* Full width for search bar */
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.suggestions-list {
+    position: absolute;
+    background-color: white; /* White background for suggestions */
+    border: 1px solid #ccc;
+    list-style-type: none;
+}
+
+.suggestions-list li {
+    padding: 10px; /* Padding for suggestion items */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+}
+
+.sign-in-button {
+    padding: 10px 20px;
+    border-radius: 20px; /* Rounded edges */
+    border: none;
+    background-color: #fff; /* White background */
+    color: #4CAF50; /* Green text */
+}

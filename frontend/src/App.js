@@ -1,12 +1,14 @@
-// frontend/src/App.js
-
 import React from 'react';
-import IngredientSearch from './components/IngredientSearch';
+import Navbar from './components/Navbar'; // Import Navbar component
+import Footer from './components/Footer'; // Import Footer component
+import IngredientSearch from './components/IngredientSearch'; // Import IngredientSearch component
 
 function App() {
     return (
-        <div className="App">
-            <IngredientSearch />
+        <div>
+            <Navbar /> {/* Render the Navbar */}
+            <IngredientSearch /> {/* Render the Ingredient Search functionality */}
+            <Footer /> {/* Render the Footer */}
         </div>
     );
 }
